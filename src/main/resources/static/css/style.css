@@ -291,3 +291,49 @@ ul li {
 .mt-30 {
     margin-top: 30px;
 }
+
+/* =====================================================
+   MATIÈRE BADGES
+   ===================================================== */
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+/* Matières spécifiques */
+.badge-mathematiques {
+    background-color: #C8102E; /* Red */
+}
+
+.badge-physique {
+    background-color: #1F3A68; /* Navy */
+}
+
+.badge-francais {
+    background-color: #198754; /* Green */
+}
+
+.badge-histoire {
+    background-color: #6F42C1; /* Purple */
+}
+
+.badge-anglais {
+    background-color: #0DCAF0; /* Cyan */
+}
+
+.badge-informatique {
+    background-color: #212529; /* Dark */
+}
+
+/* Fallback si matière inconnue */
+.badge-default {
+    background-color: #6C757D;
+}
