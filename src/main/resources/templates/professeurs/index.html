@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Gestion des Professeurs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
+<h1 class="page-title">Gestion des Professeurs</h1>
+
+<!-- ACTION BUTTONS -->
+<div class="top-actions">
+    <a th:href="@{/professeurs/new}" class="btn btn-primary">
+        Ajouter un professeur
+    </a>
+
+    <a th:href="@{/classes/}" class="btn btn-secondary">
+        Voir toutes les classes
+    </a>
+</div>
+
+<!-- TABLE -->
+<div class="card">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom complet</th>
+            <th>Email</th>
+            <th>Nombre de classes</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${#lists.isEmpty(professeurs)}">
+            <td colspan="4" style="text-align:center;">
+                Aucun professeur trouvé.
+            </td>
+        </tr>
+
+        <tr th:each="p : ${professeurs}">
+            <td th:text="${p.prenom + ' ' + p.nom}"></td>
+            <td th:text="${p.email}"></td>
+            <td th:text="${#lists.size(p.classes)}"></td>
+            <td class="action-buttons">
+                <a th:href="@{/professeurs/{id}(id=${p.id})}"
+                   class="btn btn-info">Voir</a>
+
+                <a th:href="@{/professeurs/{id}/edit(id=${p.id})}"
+                   class="btn btn-primary">Modifier</a>
+
+                <a th:href="@{/professeurs/{id}/delete(id=${p.id})}"
+                   class="btn btn-danger"
+                   onclick="return confirm('Supprimer ce professeur ?');">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    © 2025 Spring School System
+</footer>
 
 </body>
 </html>

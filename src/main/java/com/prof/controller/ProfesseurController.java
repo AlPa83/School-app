@@ -23,7 +23,7 @@ public class ProfesseurController {
     }
 
     @GetMapping("/new")
-    public String nouveau(Model model) {
+    public String newForm(Model model) {
         model.addAttribute("professeur", new Professeur());
         return "professeurs/form";
     }
@@ -36,17 +36,27 @@ public class ProfesseurController {
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        model.addAttribute("professeur", service.findById(id));
+
+        Professeur professeur = service.findById(id);
+        if (professeur == null) {
+            return "redirect:/professeurs/";
+        }
+
+        int totalEleves = service.calculerTotalEleves(id);
+
+        model.addAttribute("professeur", professeur);
+        model.addAttribute("totalEleves", totalEleves);
+
         return "professeurs/detail";
     }
 
-    @GetMapping("/{id}/modify")
-    public String modify(@PathVariable Long id, Model model) {
+    @GetMapping("/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("professeur", service.findById(id));
         return "professeurs/form";
     }
 
-    @PostMapping("/{id}/modify")
+    @PostMapping("/{id}/edit")
     public String update(@ModelAttribute Professeur professeur) {
         service.save(professeur);
         return "redirect:/professeurs/";
@@ -58,4 +68,3 @@ public class ProfesseurController {
         return "redirect:/professeurs/";
     }
 }
-

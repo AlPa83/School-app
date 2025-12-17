@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>Gestion des Classes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
+<h1 class="page-title">Gestion des Classes</h1>
+
+<!-- TOP ACTIONS -->
+<div class="top-actions">
+    <a th:href="@{/classes/new}" class="btn btn-primary">
+        Ajouter une classe
+    </a>
+
+    <a th:href="@{/professeurs/}" class="btn btn-secondary">
+        Voir tous les professeurs
+    </a>
+</div>
+
+<!-- TABLE -->
+<div class="card">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Niveau</th>
+            <th>Matière</th>
+            <th>Professeur</th>
+            <th>Élèves</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:if="${#lists.isEmpty(classes)}">
+            <td colspan="6" class="center">Aucune classe trouvée.</td>
+        </tr>
+
+        <tr th:each="c : ${classes}">
+            <td class="name-col" th:text="${c.nom}"></td>
+            <td th:text="${c.niveau}"></td>
+
+            <!-- BADGE MATIERE -->
+            <td>
+                <span class="badge"
+                      th:classappend="' badge-' + ${c.matiereKey}"
+                      th:text="${c.matiere}">
+                </span>
+            </td>
+
+            <td>
+                <a th:href="@{/professeurs/{id}(id=${c.professeur.id})}"
+                   class="link">
+                    <span th:text="${c.professeur.prenom + ' ' + c.professeur.nom}"></span>
+                </a>
+            </td>
+
+            <td th:text="${c.nombreEleves}"></td>
+
+            <td class="actions-col">
+                <div class="action-buttons">
+                    <a th:href="@{/classes/{id}(id=${c.id})}" class="btn btn-info">Voir</a>
+                    <a th:href="@{/classes/{id}/edit(id=${c.id})}" class="btn btn-primary">Modifier</a>
+                    <a th:href="@{/classes/{id}/delete(id=${c.id})}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Supprimer cette classe ?');">
+                        Supprimer
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="footer">
+    © 2025 Spring School System
+</footer>
 
 </body>
 </html>

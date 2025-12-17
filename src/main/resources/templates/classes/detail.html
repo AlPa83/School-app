@@ -1,10 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detail</title>
+    <title>Détail de la Classe</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
+
+<h1 class="page-title">Détail de la Classe</h1>
+
+<!-- CLASSE INFO -->
+<div class="card center">
+    <h2 th:text="${classe.nom}"></h2>
+
+    <p>
+        <strong>Niveau :</strong>
+        <span th:text="${classe.niveau}"></span>
+    </p>
+
+    <p>
+        <strong>Matière :</strong>
+        <span th:text="${classe.matiere}"></span>
+    </p>
+
+    <p>
+        <strong>Nombre d'élèves :</strong>
+        <span th:text="${classe.nombreEleves}"></span>
+    </p>
+</div>
+
+<!-- PROFESSEUR INFO -->
+<div class="card mt-30">
+    <h2 class="center">Professeur responsable</h2>
+
+    <p class="center" th:if="${classe.professeur == null}">
+        Aucun professeur assigné.
+    </p>
+
+    <div th:if="${classe.professeur != null}" class="center">
+        <p>
+            <strong>
+                <a th:href="@{/professeurs/{id}(id=${classe.professeur.id})}"
+                   th:text="${classe.professeur.prenom + ' ' + classe.professeur.nom}"
+                   class="btn btn-info">
+                </a>
+            </strong>
+        </p>
+
+        <p>
+            <span th:text="${classe.professeur.email}"></span>
+        </p>
+    </div>
+</div>
+
+<!-- ACTION BUTTONS -->
+<div class="top-actions mt-30">
+    <a th:href="@{/classes/{id}/edit(id=${classe.id})}"
+       class="btn btn-primary">
+        Modifier
+    </a>
+
+    <a th:href="@{/classes/{id}/delete(id=${classe.id})}"
+       class="btn btn-danger"
+       onclick="return confirm('Supprimer cette classe ?');">
+        Supprimer
+    </a>
+
+    <a th:href="@{/classes/}" class="btn btn-secondary">
+        Retour
+    </a>
+</div>
 
 </body>
 </html>

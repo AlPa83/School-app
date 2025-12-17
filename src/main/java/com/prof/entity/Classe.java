@@ -37,6 +37,15 @@ public class Classe {
     public String getMatiere() { return matiere; }
     public void setMatiere(String matiere) { this.matiere = matiere; }
 
+    public String getMatiereKey() {
+        return matiere.toLowerCase()
+                .replace("é", "e")
+                .replace("è", "e")
+                .replace("ç", "c")
+                .replace(" ", "");
+    }
+
+
     public int getNombreEleves() { return nombreEleves; }
     public void setNombreEleves(int nombreEleves) { this.nombreEleves = nombreEleves; }
 

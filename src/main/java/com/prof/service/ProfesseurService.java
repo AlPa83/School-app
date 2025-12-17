@@ -30,4 +30,18 @@ public class ProfesseurService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    public int calculerTotalEleves(Long professeurId) {
+
+        Professeur professeur = findById(professeurId);
+
+        if (professeur == null || professeur.getClasses() == null) {
+            return 0;
+        }
+
+        return professeur.getClasses()
+                .stream()
+                .mapToInt(c -> c.getNombreEleves())
+                .sum();
+    }
 }
