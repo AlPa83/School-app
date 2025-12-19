@@ -41,6 +41,8 @@ public class ProfesseurService {
             return 0;
         }
 
+        // Le stream évite les erreurs liées aux boucles manuelles et
+        //  sépare la transformation des données et le calcul final
         return professeur.getClasses()
                 .stream()
                 .mapToInt(c -> c.getNombreEleves())

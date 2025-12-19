@@ -61,7 +61,9 @@ public class Classe {
     public void setMatiere(String matiere) {
         this.matiere = matiere;
     }
-
+    /**
+     * Clé utilisée pour générer dynamiquement les badges CSS
+     */
     public String getMatiereKey() {
         return matiere.toLowerCase()
                 .replace("é", "e")
