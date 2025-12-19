@@ -9,31 +9,56 @@
 
 <h1 class="page-title">Détail du Professeur</h1>
 
+<!-- INFOS PROFESSEUR -->
 <div class="card center">
     <h2 th:text="${professeur.prenom + ' ' + professeur.nom}"></h2>
     <p th:text="${professeur.email}"></p>
 </div>
 
+<!-- STATISTIQUES -->
 <div class="stats">
+
+    <!-- NOMBRE DE CLASSES -->
     <div class="stat-box">
-        <div class="stat-number" th:text="${#lists.size(professeur.classes)}">0</div>
+        <div class="stat-number"
+             th:text="${#lists.size(professeur.classes)}">
+            0
+        </div>
         <div class="stat-label">Classes</div>
     </div>
 
+    <!-- TOTAL D'ÉLÈVES -->
     <div class="stat-box">
-        <div class="stat-number" th:text="${totalEleves}">0</div>
+        <div class="stat-number"
+             th:text="${totalEleves}">
+            0
+        </div>
         <div class="stat-label">Élèves</div>
     </div>
+
+    <!-- MOYENNE D'ÉLÈVES PAR CLASSE -->
+    <div class="stat-box">
+        <div class="stat-number"
+             th:text="${#numbers.formatDecimal(moyenneEleves, 1, 1)}">
+            0
+        </div>
+        <div class="stat-label">Moyenne / classe</div>
+    </div>
+
 </div>
 
+<!-- LISTE DES CLASSES -->
 <div class="card mt-30">
     <h2>Classes enseignées</h2>
 
     <ul>
         <li th:each="c : ${professeur.classes}">
-            <strong th:text="${c.nom}"></strong> —
-            <span th:text="${c.niveau}"></span> —
-            <span th:text="${c.matiere}"></span> —
+            <strong th:text="${c.nom}"></strong>
+            —
+            <span th:text="${c.niveau}"></span>
+            —
+            <span th:text="${c.matiere}"></span>
+            —
             <span th:text="${c.nombreEleves + ' élèves'}"></span>
         </li>
 
@@ -43,17 +68,28 @@
     </ul>
 </div>
 
+<!-- ACTIONS -->
 <div class="top-actions mt-30">
-    <a th:href="@{/professeurs/{id}/edit(id=${professeur.id})}" class="btn btn-primary">Modifier</a>
+    <a th:href="@{/professeurs/{id}/edit(id=${professeur.id})}"
+       class="btn btn-primary">
+        Modifier
+    </a>
+
     <a th:href="@{/professeurs/{id}/delete(id=${professeur.id})}"
        class="btn btn-danger"
        onclick="return confirm('Supprimer ce professeur ?');">
         Supprimer
     </a>
-    <a th:href="@{/professeurs/}" class="btn btn-secondary">Retour</a>
+
+    <a th:href="@{/professeurs/}"
+       class="btn btn-secondary">
+        Retour
+    </a>
 </div>
 
-<div class="footer">© 2025 Spring School System</div>
+<div class="footer">
+    © 2025 Spring School System
+</div>
 
 </body>
 </html>

@@ -8,6 +8,7 @@ public class Classe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nom;
     private String niveau;
     private String matiere;
@@ -26,16 +27,40 @@ public class Classe {
         this.nombreEleves = nombreEleves;
     }
 
-    // Getters & Setters
-    public Long getId() { return id; }
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    /* ===== ID ===== */
+    public Long getId() {
+        return id;
+    }
 
-    public String getNiveau() { return niveau; }
-    public void setNiveau(String niveau) { this.niveau = niveau; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getMatiere() { return matiere; }
-    public void setMatiere(String matiere) { this.matiere = matiere; }
+    /* ===== AUTRES CHAMPS ===== */
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(String niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getMatiere() {
+        return matiere;
+    }
+
+    public void setMatiere(String matiere) {
+        this.matiere = matiere;
+    }
 
     public String getMatiereKey() {
         return matiere.toLowerCase()
@@ -45,10 +70,19 @@ public class Classe {
                 .replace(" ", "");
     }
 
+    public int getNombreEleves() {
+        return nombreEleves;
+    }
 
-    public int getNombreEleves() { return nombreEleves; }
-    public void setNombreEleves(int nombreEleves) { this.nombreEleves = nombreEleves; }
+    public void setNombreEleves(int nombreEleves) {
+        this.nombreEleves = nombreEleves;
+    }
 
-    public Professeur getProfesseur() { return professeur; }
-    public void setProfesseur(Professeur professeur) { this.professeur = professeur; }
+    public Professeur getProfesseur() {
+        return professeur;
+    }
+
+    public void setProfesseur(Professeur professeur) {
+        this.professeur = professeur;
+    }
 }

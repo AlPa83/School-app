@@ -15,8 +15,9 @@ public class ProfesseurService {
         this.repository = repository;
     }
 
+    //  TRI ALPHABÉTIQUE
     public List<Professeur> findAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByNomAsc();
     }
 
     public Professeur findById(Long id) {
@@ -31,6 +32,7 @@ public class ProfesseurService {
         repository.deleteById(id);
     }
 
+    //  TOTAL D'ÉLÈVES
     public int calculerTotalEleves(Long professeurId) {
 
         Professeur professeur = findById(professeurId);
@@ -43,5 +45,20 @@ public class ProfesseurService {
                 .stream()
                 .mapToInt(c -> c.getNombreEleves())
                 .sum();
+    }
+
+    //  MOYENNE D'ÉLÈVES PAR CLASSE
+    public double calculerMoyenneEleves(Long professeurId) {
+
+        Professeur professeur = findById(professeurId);
+
+        if (professeur == null || professeur.getClasses().isEmpty()) {
+            return 0;
+        }
+
+        int totalEleves = calculerTotalEleves(professeurId);
+        int nombreClasses = professeur.getClasses().size();
+
+        return (double) totalEleves / nombreClasses;
     }
 }

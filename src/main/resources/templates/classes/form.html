@@ -11,31 +11,36 @@
 
 <div class="form-card card">
 
-    <form th:action="@{${classe.id} != null ? '/classes/' + ${classe.id} + '/edit' : '/classes/new'}"
-          th:object="${classe}" method="post">
+    <form th:action="@{${classe.id} != null
+            ? '/classes/' + ${classe.id} + '/edit'
+            : '/classes/new'}"
+          th:object="${classe}"
+          method="post">
+
+        <!-- ID CACHÉ  -->
+        <input type="hidden" th:field="*{id}">
 
         <!-- NOM -->
         <div class="form-group">
             <label for="nom">Nom de la classe</label>
-            <input type="text" id="nom" th:field="*{nom}" placeholder="Ex: Seconde A" required>
+            <input type="text" id="nom" th:field="*{nom}" required>
         </div>
 
         <!-- NIVEAU -->
         <div class="form-group">
             <label for="niveau">Niveau</label>
             <select id="niveau" th:field="*{niveau}" required>
-                <option value="" disabled th:if="*{niveau} == null" selected>-- Sélectionnez le niveau --</option>
-                <option value="Seconde" th:selected="*{niveau} == 'Seconde'">Seconde</option>
-                <option value="Première" th:selected="*{niveau} == 'Première'">Première</option>
-                <option value="Terminale" th:selected="*{niveau} == 'Terminale'">Terminale</option>
-                <option value="BTS" th:selected="*{niveau} == 'BTS'">BTS</option>
+                <option value="Seconde">Seconde</option>
+                <option value="Première">Première</option>
+                <option value="Terminale">Terminale</option>
+                <option value="BTS">BTS</option>
             </select>
         </div>
 
         <!-- MATIÈRE -->
         <div class="form-group">
             <label for="matiere">Matière</label>
-            <input type="text" id="matiere" th:field="*{matiere}" placeholder="Ex: Mathématiques" required>
+            <input type="text" id="matiere" th:field="*{matiere}" required>
         </div>
 
         <!-- NOMBRE D'ÉLÈVES -->
@@ -48,11 +53,9 @@
         <div class="form-group">
             <label for="professeur">Professeur</label>
             <select id="professeur" th:field="*{professeur}" required>
-                <option value="" disabled th:if="*{professeur} == null" selected>-- Sélectionnez un professeur --</option>
                 <option th:each="p : ${professeurs}"
                         th:value="${p.id}"
-                        th:text="${p.prenom + ' ' + p.nom}"
-                        th:selected="*{professeur?.id} == ${p.id}">
+                        th:text="${p.prenom + ' ' + p.nom}">
                 </option>
             </select>
         </div>
@@ -61,7 +64,6 @@
         <div class="top-actions mt-20">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
             <a th:href="@{/classes/}" class="btn btn-secondary">Annuler</a>
-            <a th:href="@{/classes/}" class="btn btn-info">Retour</a>
         </div>
 
     </form>

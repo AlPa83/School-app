@@ -1,8 +1,10 @@
 package com.prof.service;
 
 import com.prof.entity.Classe;
+import com.prof.entity.Professeur;
 import com.prof.repository.ClasseRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,7 +29,19 @@ public class ClasseService {
         return repository.save(classe);
     }
 
+    @Transactional
     public void deleteById(Long id) {
-        repository.deleteById(id);
+        Classe classe = repository.findById(id).orElse(null);
+
+        if (classe != null) {
+            Professeur professeur = classe.getProfesseur();
+
+            if (professeur != null) {
+                professeur.getClasses().remove(classe);
+                classe.setProfesseur(null);
+            }
+
+            repository.delete(classe);
+        }
     }
 }

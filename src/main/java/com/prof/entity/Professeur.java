@@ -18,7 +18,7 @@ public class Professeur {
     @OneToMany(
             mappedBy = "professeur",
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
+            fetch = FetchType.LAZY
     )
     private List<Classe> classes = new ArrayList<>();
 
@@ -64,5 +64,15 @@ public class Professeur {
 
     public void setClasses(List<Classe> classes) {
         this.classes = classes;
+    }
+
+    public void addClasse(Classe classe) {
+        classes.add(classe);
+        classe.setProfesseur(this);
+    }
+
+    public void removeClasse(Classe classe) {
+        classes.remove(classe);
+        classe.setProfesseur(null);
     }
 }

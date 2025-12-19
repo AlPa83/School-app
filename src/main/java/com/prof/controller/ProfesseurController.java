@@ -18,8 +18,26 @@ public class ProfesseurController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("professeurs", service.findAll());
+        model.addAttribute("professeurs", service.findAll()); // trié alphabétiquement
         return "professeurs/index";
+    }
+
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+
+        Professeur professeur = service.findById(id);
+        if (professeur == null) {
+            return "redirect:/professeurs/";
+        }
+
+        int totalEleves = service.calculerTotalEleves(id);
+        double moyenneEleves = service.calculerMoyenneEleves(id);
+
+        model.addAttribute("professeur", professeur);
+        model.addAttribute("totalEleves", totalEleves);
+        model.addAttribute("moyenneEleves", moyenneEleves);
+
+        return "professeurs/detail";
     }
 
     @GetMapping("/new")
@@ -32,22 +50,6 @@ public class ProfesseurController {
     public String create(@ModelAttribute Professeur professeur) {
         service.save(professeur);
         return "redirect:/professeurs/";
-    }
-
-    @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
-
-        Professeur professeur = service.findById(id);
-        if (professeur == null) {
-            return "redirect:/professeurs/";
-        }
-
-        int totalEleves = service.calculerTotalEleves(id);
-
-        model.addAttribute("professeur", professeur);
-        model.addAttribute("totalEleves", totalEleves);
-
-        return "professeurs/detail";
     }
 
     @GetMapping("/{id}/edit")
